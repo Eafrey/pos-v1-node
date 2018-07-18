@@ -93,8 +93,8 @@ module.exports = function printInventory(inputs) {
     keyarr.forEach(element => {
         res += '\n名称：' + good_datamap.get(element)['name'] + '，数量：' +
         good_list.get(element) + good_datamap.get(element)['unit'] + '，单价：' +
-        good_datamap.get(element)['price'] + '(元)，小计：' +
-        good_list.get(element) * good_datamap.get(element)['price'] + '(元)';
+        good_datamap.get(element)['price'].toFixed(2) + '(元)，小计：' +
+        ((good_list.get(element)-parseInt(good_list.get(element)/3)) * good_datamap.get(element)['price']).toFixed(2) + '(元)';
 
         all_price += good_list.get(element) * good_datamap.get(element)['price'];
     });
@@ -111,8 +111,8 @@ module.exports = function printInventory(inputs) {
     });
 
     res += '\n----------------------';
-    res += '\n总计：' + all_price + '(元)';
-    res += '\n节省：' + discount_price + '(元)';
+    res += '\n总计：' + (all_price-discount_price).toFixed(2) + '(元)';
+    res += '\n节省：' + discount_price.toFixed(2) + '(元)\n**********************';
 
     console.log(res);
 
