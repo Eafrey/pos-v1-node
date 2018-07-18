@@ -86,6 +86,7 @@ module.exports = function printInventory(inputs) {
     //console.log(good_datamap);
 
     let all_price = 0;
+    let discount_price = 0;
 
     res += '***<没钱赚商店>购物清单***';
     let keyarr = Array.from(good_list.keys());
@@ -98,8 +99,20 @@ module.exports = function printInventory(inputs) {
         all_price += good_list.get(element) * good_datamap.get(element)['price'];
     });
 
+    res += '\n----------------------\n挥泪赠送商品：'
+
+    let discount = loadPromotions();
+    Array.from(good_list.keys()).forEach(element => {
+        if(parseInt(good_list.get(element)/3) > 0) {
+            res += '\n名称：' + good_datamap.get(element)['name'] + '，数量：' +
+            parseInt(good_list.get(element)/3) + good_datamap.get(element)['unit'];
+            discount_price += parseInt(good_list.get(element)/3) * good_datamap.get(element)['price'];
+        }
+    });
+
     res += '\n----------------------';
     res += '\n总计：' + all_price + '(元)';
+    res += '\n节省：' + discount_price + '(元)';
 
     console.log(res);
 
