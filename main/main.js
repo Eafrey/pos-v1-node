@@ -85,13 +85,21 @@ module.exports = function printInventory(inputs) {
 
     //console.log(good_datamap);
 
+    let all_price = 0;
+
     res += '***<没钱赚商店>购物清单***';
     let keyarr = Array.from(good_list.keys());
     keyarr.forEach(element => {
         res += '\n名称：' + good_datamap.get(element)['name'] + '，数量：' +
         good_list.get(element) + good_datamap.get(element)['unit'] + '，单价：' +
-        good_datamap.get(element)['price'] + '(元)，小计：';
+        good_datamap.get(element)['price'] + '(元)，小计：' +
+        good_list.get(element) * good_datamap.get(element)['price'] + '(元)';
+
+        all_price += good_list.get(element) * good_datamap.get(element)['price'];
     });
+
+    res += '\n----------------------';
+    res += '\n总计：' + all_price + '(元)';
 
     console.log(res);
 
